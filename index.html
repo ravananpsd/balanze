@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Balanze — Building Brands That Grow</title>
+<meta name="description" content="Balanze is India's premium creative branding agency helping ambitious businesses build memorable brands through strategy, design, websites and marketing.">
+<meta property="og:title" content="Balanze — Building Brands That Grow">
+<meta property="og:description" content="We help ambitious businesses build memorable brands through strategy, design, websites and marketing.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://balanze.in/og-image.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+
+<style>
+/* ─── RESET & TOKENS ──────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black: #0A0A0A;
+  --white: #FFFFFF;
+  --gold: #C7A45A;
+  --gold-light: #E2C98A;
+  --bg: #F7F7F5;
+  --surface: #EFEFEC;
+  --muted: #6B6B6B;
+  --border: rgba(0,0,0,0.08);
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+  --nav-h: 72px;
+  --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--black);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ─── CUSTOM CURSOR ───────────────────────────────────────── */
+#cursor {
+  width: 10px; height: 10px;
+  background: var(--black);
+  border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: transform 0.1s var(--ease), width 0.3s var(--ease), height 0.3s var(--ease), background 0.3s;
+  mix-blend-mode: difference;
+}
+#cursor-ring {
+  width: 36px; height: 36px;
+  border: 1.5px solid rgba(0,0,0,0.3);
+  border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: transform 0.18s var(--ease), width 0.3s var(--ease), height 0.3s var(--ease), border-color 0.3s, opacity 0.3s;
+}
+body:has(a:hover) #cursor, body:has(button:hover) #cursor { width: 6px; height: 6px; }
+body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56px; height: 56px; border-color: var(--gold); }
+
+/* ─── TYPOGRAPHY SCALE ────────────────────────────────────── */
+.t-display { font-family: var(--serif); font-size: clamp(64px, 10vw, 140px); line-height: 0.95; letter-spacing: -0.02em; font-weight: 400; }
+.t-hero { font-family: var(--serif); font-size: clamp(52px, 8vw, 112px); line-height: 0.93; letter-spacing: -0.025em; font-weight: 400; }
+.t-h2 { font-family: var(--serif); font-size: clamp(36px, 5vw, 72px); line-height: 1.0; letter-spacing: -0.02em; font-weight: 400; }
+.t-h3 { font-family: var(--sans); font-size: clamp(20px, 2.5vw, 28px); font-weight: 500; letter-spacing: -0.01em; line-height: 1.25; }
+.t-body { font-size: 17px; line-height: 1.7; color: var(--muted); font-weight: 300; }
+.t-label { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: var(--muted); }
+.t-gold { color: var(--gold); }
+.t-italic { font-style: italic; }
+
+/* ─── LAYOUT ──────────────────────────────────────────────── */
+.container { max-width: 1320px; margin: 0 auto; padding: 0 40px; }
+@media(max-width:768px) { .container { padding: 0 20px; } }
+
+section { position: relative; }
+
+/* ─── NAVIGATION ──────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  height: var(--nav-h);
+  display: flex; align-items: center;
+  transition: background 0.4s var(--ease), backdrop-filter 0.4s, box-shadow 0.4s;
+}
+nav.scrolled {
+  background: rgba(247,247,245,0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 1px 0 var(--border);
+}
+.nav-inner {
+  width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 40px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  font-family: var(--serif); font-size: 24px; letter-spacing: -0.02em;
+  color: var(--black); text-decoration: none;
+  display: flex; align-items: center; gap: 8px;
+}
+.nav-logo span { color: var(--gold); }
+.nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+.nav-links a { font-size: 14px; font-weight: 400; color: var(--black); text-decoration: none; opacity: 0.7; transition: opacity 0.2s; letter-spacing: 0.01em; }
+.nav-links a:hover { opacity: 1; }
+.nav-cta {
+  font-size: 13px; font-weight: 600; color: var(--white);
+  background: var(--black); border: none; padding: 11px 24px;
+  border-radius: 100px; cursor: none; text-decoration: none;
+  letter-spacing: 0.02em; transition: background 0.25s, transform 0.2s;
+}
+.nav-cta:hover { background: var(--gold); transform: translateY(-1px); }
+.nav-ham { display: none; flex-direction: column; gap: 5px; cursor: none; border: none; background: none; padding: 4px; }
+.nav-ham span { width: 24px; height: 1.5px; background: var(--black); display: block; transition: transform 0.3s, opacity 0.3s; }
+
+@media(max-width:900px) {
+  .nav-links { display: none; }
+  .nav-ham { display: flex; }
+  .nav-cta { display: none; }
+}
+
+/* Mobile nav menu */
+.mobile-nav {
+  position: fixed; inset: 0; background: var(--black); z-index: 999;
+  display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 32px;
+  opacity: 0; pointer-events: none; transition: opacity 0.4s;
+}
+.mobile-nav.open { opacity: 1; pointer-events: all; }
+.mobile-nav a { font-family: var(--serif); font-size: 40px; color: var(--white); text-decoration: none; letter-spacing: -0.02em; transition: color 0.2s; }
+.mobile-nav a:hover { color: var(--gold); }
+.mobile-nav-close { position: absolute; top: 24px; right: 28px; background: none; border: none; color: var(--white); font-size: 28px; cursor: none; }
+
+/* ─── HERO ────────────────────────────────────────────────── */
+.hero {
+  min-height: 100svh;
+  display: grid; grid-template-rows: 1fr auto;
+  padding-top: var(--nav-h);
+  background: var(--bg);
+  overflow: hidden;
+}
+.hero-content {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 80px 40px 40px;
+  max-width: 1320px; margin: 0 auto; width: 100%;
+  gap: 40px;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: var(--muted);
+}
+.hero-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--gold); display: block; }
+.hero-headline { max-width: 900px; }
+.hero-headline em { font-style: italic; color: var(--gold); }
+.hero-sub {
+  max-width: 480px; font-size: 18px; line-height: 1.65; color: var(--muted); font-weight: 300;
+}
+.hero-actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--black); color: var(--white);
+  font-size: 14px; font-weight: 600; letter-spacing: 0.02em;
+  padding: 16px 32px; border-radius: 100px;
+  text-decoration: none; cursor: none; border: none;
+  transition: background 0.25s, transform 0.2s, gap 0.25s;
+}
+.btn-primary:hover { background: var(--gold); transform: translateY(-2px); gap: 16px; }
+.btn-primary svg { transition: transform 0.25s; }
+.btn-primary:hover svg { transform: translateX(3px); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 10px;
+  color: var(--black); font-size: 14px; font-weight: 500;
+  text-decoration: none; cursor: none; padding: 16px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.15);
+  transition: border-color 0.25s, gap 0.25s;
+}
+.btn-ghost:hover { border-color: var(--gold); gap: 16px; color: var(--gold); }
+.hero-stats {
+  display: flex; gap: 48px; padding: 40px;
+  max-width: 1320px; margin: 0 auto; width: 100%;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.stat-item {}
+.stat-num { font-family: var(--serif); font-size: 42px; letter-spacing: -0.02em; line-height: 1; }
+.stat-label { font-size: 13px; color: var(--muted); margin-top: 4px; font-weight: 300; }
+
+/* ─── TICKER ──────────────────────────────────────────────── */
+.ticker-wrap {
+  overflow: hidden; background: var(--black); padding: 18px 0;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.ticker-track {
+  display: flex; gap: 0; width: max-content;
+  animation: ticker 30s linear infinite;
+}
+.ticker-track:hover { animation-play-state: paused; }
+.ticker-item {
+  display: flex; align-items: center; gap: 28px; padding: 0 28px;
+  font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(255,255,255,0.45); font-weight: 500; white-space: nowrap;
+}
+.ticker-item .dot { width: 4px; height: 4px; background: var(--gold); border-radius: 50%; flex-shrink: 0; }
+@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ─── TRUSTED BY ──────────────────────────────────────────── */
+.trusted { padding: 100px 0; }
+.trusted-grid {
+  display: flex; flex-wrap: wrap; gap: 0;
+  margin-top: 48px; border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
+}
+.trusted-logo {
+  flex: 1 1 160px; padding: 36px 24px;
+  display: flex; align-items: center; justify-content: center;
+  border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  transition: background 0.25s;
+  font-family: var(--serif); font-size: 20px; color: rgba(0,0,0,0.2); letter-spacing: -0.02em;
+}
+.trusted-logo:hover { background: var(--surface); color: rgba(0,0,0,0.5); }
+
+/* ─── SERVICES ────────────────────────────────────────────── */
+.services { padding: 120px 0; background: var(--white); }
+.section-header { margin-bottom: 64px; }
+.section-header .t-label { margin-bottom: 16px; display: block; }
+.services-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2px;
+  background: var(--border);
+  border: 1px solid var(--border); border-radius: 20px; overflow: hidden;
+}
+.service-card {
+  background: var(--white); padding: 44px 40px;
+  transition: background 0.25s;
+  cursor: none; position: relative;
+}
+.service-card:hover { background: var(--black); }
+.service-card:hover .service-title, .service-card:hover .service-desc { color: var(--white); }
+.service-card:hover .service-icon { color: var(--gold); }
+.service-icon { font-size: 28px; margin-bottom: 24px; display: block; transition: color 0.25s; }
+.service-title { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 12px; transition: color 0.25s; }
+.service-desc { font-size: 14px; color: var(--muted); line-height: 1.65; font-weight: 300; transition: color 0.25s; }
+
+/* ─── FEATURED WORK ───────────────────────────────────────── */
+.work { padding: 120px 0; }
+.work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 64px; }
+.work-card {
+  border-radius: 20px; overflow: hidden; position: relative;
+  cursor: none; aspect-ratio: 4/3; background: var(--surface);
+  transition: transform 0.4s var(--ease-out);
+}
+.work-card:hover { transform: translateY(-6px); }
+.work-card:hover .work-overlay { opacity: 1; }
+.work-card:hover .work-img { transform: scale(1.05); }
+.work-card-large { grid-column: span 2; aspect-ratio: 16/7; }
+.work-img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.6s var(--ease-out);
+  display: flex; align-items: center; justify-content: center;
+}
+.work-placeholder {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 80px; color: rgba(0,0,0,0.07);
+  letter-spacing: -0.04em; user-select: none;
+  transition: transform 0.6s var(--ease-out);
+}
+.work-card:hover .work-placeholder { transform: scale(1.05); }
+.work-overlay {
+  position: absolute; inset: 0; padding: 32px;
+  background: linear-gradient(to top, rgba(10,10,10,0.85) 0%, transparent 60%);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  opacity: 0; transition: opacity 0.35s;
+}
+.work-card-tag { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 8px; }
+.work-card-title { font-family: var(--serif); font-size: 26px; color: var(--white); letter-spacing: -0.02em; }
+.work-always { position: absolute; bottom: 28px; left: 32px; }
+.work-card-info { transition: opacity 0.3s; }
+.work-card:not(:hover) .work-always .work-card-tag { color: var(--muted); }
+.work-card:not(:hover) .work-always .work-card-title { color: var(--black); }
+@media(max-width:768px) { .work-grid { grid-template-columns: 1fr; } .work-card-large { grid-column: span 1; } }
+
+/* ─── WHY BALANZE ─────────────────────────────────────────── */
+.why { padding: 120px 0; background: var(--black); color: var(--white); }
+.why .t-label { color: rgba(255,255,255,0.35); }
+.why .t-h2 { color: var(--white); }
+.why-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  margin-top: 72px; background: rgba(255,255,255,0.08); border-radius: 20px; overflow: hidden;
+}
+.why-item {
+  background: var(--black); padding: 52px 48px;
+  transition: background 0.3s;
+}
+.why-item:hover { background: #111; }
+.why-num { font-family: var(--serif); font-size: 56px; color: rgba(255,255,255,0.06); line-height: 1; margin-bottom: 20px; letter-spacing: -0.04em; }
+.why-title { font-size: 22px; font-weight: 600; color: var(--white); margin-bottom: 14px; letter-spacing: -0.01em; }
+.why-desc { font-size: 15px; color: rgba(255,255,255,0.45); line-height: 1.7; font-weight: 300; }
+@media(max-width:768px) { .why-grid { grid-template-columns: 1fr; } }
+
+/* ─── PROCESS ─────────────────────────────────────────────── */
+.process { padding: 120px 0; background: var(--bg); }
+.process-steps {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+  margin-top: 72px;
+  border: 1px solid var(--border); border-radius: 20px; overflow: hidden;
+}
+.process-step {
+  padding: 44px 36px; position: relative;
+  border-right: 1px solid var(--border);
+  transition: background 0.3s;
+}
+.process-step:last-child { border-right: none; }
+.process-step:hover { background: var(--white); }
+.process-step-num { font-family: var(--serif); font-size: 48px; color: rgba(0,0,0,0.06); line-height: 1; margin-bottom: 24px; letter-spacing: -0.04em; }
+.process-step-title { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 12px; }
+.process-step-desc { font-size: 13px; color: var(--muted); line-height: 1.65; font-weight: 300; }
+.process-step::after {
+  content: '→';
+  position: absolute; right: -14px; top: 50%; transform: translateY(-50%);
+  color: var(--gold); font-size: 20px; z-index: 1;
+  display: none;
+}
+@media(max-width:1100px) { .process-steps { grid-template-columns: repeat(2, 1fr); } .process-step:nth-child(2) { border-right: none; } .process-step:nth-child(odd):not(:last-child) { border-right: 1px solid var(--border); } }
+@media(max-width:640px) { .process-steps { grid-template-columns: 1fr; } .process-step { border-right: none; border-bottom: 1px solid var(--border); } }
+
+/* ─── TESTIMONIALS ────────────────────────────────────────── */
+.testimonials { padding: 120px 0; background: var(--white); }
+.testimonials-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-top: 64px; }
+.testi-card {
+  background: var(--bg); border-radius: 20px; padding: 44px 36px;
+  display: flex; flex-direction: column; gap: 24px;
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s;
+}
+.testi-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.06); }
+.testi-quote { font-family: var(--serif); font-size: clamp(18px,1.8vw,22px); line-height: 1.45; color: var(--black); letter-spacing: -0.01em; }
+.testi-author { display: flex; align-items: center; gap: 16px; margin-top: auto; }
+.testi-avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--surface); display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 18px; color: var(--muted); font-weight: 400; flex-shrink: 0;
+}
+.testi-name { font-size: 14px; font-weight: 600; }
+.testi-role { font-size: 12px; color: var(--muted); }
+.testi-stars { color: var(--gold); font-size: 12px; letter-spacing: 1px; }
+@media(max-width:1024px) { .testimonials-grid { grid-template-columns: 1fr 1fr; } }
+@media(max-width:640px) { .testimonials-grid { grid-template-columns: 1fr; } }
+
+/* ─── FAQ ─────────────────────────────────────────────────── */
+.faq { padding: 120px 0; background: var(--bg); }
+.faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 64px; }
+.faq-list { display: flex; flex-direction: column; gap: 0; }
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-q {
+  width: 100%; text-align: left; background: none; border: none;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 24px 0; cursor: none; gap: 16px;
+  font-size: 16px; font-weight: 500; color: var(--black); letter-spacing: -0.01em;
+}
+.faq-q span { flex: 1; text-align: left; }
+.faq-icon { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.25s, border-color 0.25s; }
+.faq-item.open .faq-icon { background: var(--black); border-color: var(--black); }
+.faq-icon svg { transition: transform 0.3s; }
+.faq-item.open .faq-icon svg { transform: rotate(45deg); fill: var(--white); }
+.faq-a { display: none; padding-bottom: 20px; font-size: 15px; color: var(--muted); line-height: 1.7; font-weight: 300; }
+.faq-item.open .faq-a { display: block; }
+.faq-cta { background: var(--black); border-radius: 20px; padding: 56px 48px; }
+.faq-cta h3 { font-family: var(--serif); font-size: 36px; color: var(--white); letter-spacing: -0.02em; margin-bottom: 16px; line-height: 1.1; }
+.faq-cta p { color: rgba(255,255,255,0.5); font-size: 15px; margin-bottom: 36px; font-weight: 300; }
+@media(max-width:900px) { .faq-grid { grid-template-columns: 1fr; } }
+
+/* ─── CTA BAND ────────────────────────────────────────────── */
+.cta-band {
+  padding: 140px 0;
+  background: var(--white);
+  text-align: center; overflow: hidden;
+}
+.cta-band .t-h2 { margin-bottom: 24px; }
+.cta-band .t-body { max-width: 480px; margin: 0 auto 48px; font-size: 18px; }
+.cta-actions { display: flex; justify-content: center; align-items: center; gap: 24px; flex-wrap: wrap; }
+.cta-marquee {
+  overflow: hidden; margin-top: 80px;
+  border-top: 1px solid var(--border); padding-top: 40px;
+}
+.cta-marquee-track {
+  display: flex; gap: 0; animation: ticker 20s linear infinite; width: max-content;
+}
+.cta-marquee-item {
+  font-family: var(--serif); font-size: 80px; line-height: 1;
+  color: rgba(0,0,0,0.04); letter-spacing: -0.04em; padding: 0 32px;
+  white-space: nowrap; user-select: none;
+}
+
+/* ─── CONTACT ─────────────────────────────────────────────── */
+.contact { padding: 120px 0; background: var(--bg); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 64px; }
+.contact-info { display: flex; flex-direction: column; gap: 32px; }
+.contact-method { display: flex; flex-direction: column; gap: 6px; }
+.contact-method .t-label { margin-bottom: 4px; }
+.contact-method a { font-size: 17px; color: var(--black); text-decoration: none; font-weight: 500; transition: color 0.2s; }
+.contact-method a:hover { color: var(--gold); }
+.contact-form { display: flex; flex-direction: column; gap: 20px; }
+.form-group { display: flex; flex-direction: column; gap: 8px; }
+.form-group label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; color: var(--muted); }
+.form-group input, .form-group textarea, .form-group select {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 12px; padding: 16px 20px; font-size: 15px;
+  font-family: var(--sans); color: var(--black); outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  -webkit-appearance: none; width: 100%;
+}
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+  border-color: var(--gold); box-shadow: 0 0 0 4px rgba(199,164,90,0.1);
+}
+.form-group textarea { min-height: 140px; resize: vertical; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media(max-width:900px) { .contact-grid { grid-template-columns: 1fr; } .form-row { grid-template-columns: 1fr; } }
+
+/* ─── FOOTER ──────────────────────────────────────────────── */
+footer {
+  background: var(--black); color: var(--white);
+  padding: 80px 0 40px;
+}
+.footer-top {
+  display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px;
+  padding-bottom: 64px; border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.footer-brand p { font-size: 14px; color: rgba(255,255,255,0.45); margin-top: 16px; max-width: 280px; line-height: 1.7; font-weight: 300; }
+.footer-col h4 { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 20px; font-weight: 600; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.footer-col ul a { font-size: 14px; color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
+.footer-col ul a:hover { color: var(--white); }
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 32px; flex-wrap: gap;
+}
+.footer-copy { font-size: 13px; color: rgba(255,255,255,0.3); }
+.footer-legal { display: flex; gap: 24px; }
+.footer-legal a { font-size: 13px; color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.2s; }
+.footer-legal a:hover { color: rgba(255,255,255,0.7); }
+@media(max-width:900px) { .footer-top { grid-template-columns: 1fr 1fr; } }
+@media(max-width:520px) { .footer-top { grid-template-columns: 1fr; } .footer-bottom { flex-direction: column; gap: 16px; } }
+
+/* ─── WHATSAPP BUTTON ─────────────────────────────────────── */
+.wa-btn {
+  position: fixed; bottom: 32px; right: 32px; z-index: 900;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: #25D366; color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 32px rgba(37,211,102,0.35);
+  text-decoration: none; cursor: none;
+  transition: transform 0.25s var(--ease-out), box-shadow 0.25s;
+  animation: wa-pulse 3s ease-in-out infinite;
+}
+.wa-btn:hover { transform: scale(1.1); box-shadow: 0 12px 40px rgba(37,211,102,0.45); }
+@keyframes wa-pulse { 0%,100% { box-shadow: 0 8px 32px rgba(37,211,102,0.35); } 50% { box-shadow: 0 8px 32px rgba(37,211,102,0.6), 0 0 0 8px rgba(37,211,102,0.08); } }
+
+/* ─── DARK MODE ───────────────────────────────────────────── */
+.dark-toggle {
+  position: fixed; bottom: 100px; right: 34px; z-index: 900;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--white); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  cursor: none; box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transition: background 0.25s;
+  font-size: 18px;
+}
+.dark-toggle:hover { background: var(--surface); }
+
+[data-theme="dark"] {
+  --bg: #0F0F0D;
+  --white: #181816;
+  --surface: #1E1E1B;
+  --black: #F2F2EE;
+  --muted: #888880;
+  --border: rgba(255,255,255,0.07);
+}
+[data-theme="dark"] nav.scrolled { background: rgba(15,15,13,0.9); }
+[data-theme="dark"] .ticker-wrap { background: #0A0A08; }
+[data-theme="dark"] .why { background: #0A0A08; }
+[data-theme="dark"] .why-item { background: #0A0A08; }
+[data-theme="dark"] .why-item:hover { background: #141412; }
+[data-theme="dark"] footer { background: #07070506; }
+[data-theme="dark"] .nav-logo, [data-theme="dark"] body { color: #F2F2EE; }
+
+/* ─── ANIMATIONS ──────────────────────────────────────────── */
+.reveal {
+  opacity: 0; transform: translateY(32px);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.45s; }
+
+@media(prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .ticker-track, .cta-marquee-track { animation: none; }
+  #cursor, #cursor-ring { display: none; }
+  body { cursor: auto; }
+}
+
+/* ─── UTILITIES ────────────────────────────────────────────── */
+.flex-between { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 24px; }
+.mt-4 { margin-top: 16px; }
+.mt-8 { margin-top: 32px; }
+
+/* ─── PAGE INDICATOR ──────────────────────────────────────── */
+.progress-bar { position: fixed; top: 0; left: 0; height: 2px; background: var(--gold); z-index: 10001; width: 0%; transition: width 0.1s linear; }
+</style>
+</head>
+<body>
+
+<!-- Progress Bar -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- Cursor -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- WhatsApp -->
+<a href="https://wa.me/919876543210?text=Hi%20Balanze%2C%20I'm%20interested%20in%20your%20services." class="wa-btn" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.557 4.126 1.533 5.864L.057 23.5l5.784-1.516A11.947 11.947 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.032-1.386l-.36-.214-3.432.9.916-3.346-.235-.378A9.77 9.77 0 012.182 12C2.182 6.575 6.575 2.182 12 2.182S21.818 6.575 21.818 12 17.425 21.818 12 21.818z"/></svg>
+</a>
+
+<!-- Dark Mode -->
+<button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode">🌙</button>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav" role="dialog" aria-label="Navigation">
+  <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close menu">✕</button>
+  <a href="#home" onclick="closeMobileNav()">Home</a>
+  <a href="#about" onclick="closeMobileNav()">About</a>
+  <a href="#services" onclick="closeMobileNav()">Services</a>
+  <a href="#work" onclick="closeMobileNav()">Work</a>
+  <a href="#process" onclick="closeMobileNav()">Process</a>
+  <a href="#contact" onclick="closeMobileNav()">Contact</a>
+</div>
+
+<!-- ─── NAVIGATION ──────────────────────────────────────── -->
+<nav id="mainNav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#home">Balanze<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#blog">Blog</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Start a Project</a>
+    <button class="nav-ham" id="navHam" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ─── HERO ────────────────────────────────────────────── -->
+<section id="home" class="hero">
+  <div class="hero-content container">
+    <div class="hero-eyebrow reveal">Creative Branding Agency · India</div>
+    <h1 class="t-hero hero-headline reveal reveal-delay-1">
+      Building Brands<br>That <em>Grow.</em>
+    </h1>
+    <p class="hero-sub reveal reveal-delay-2">
+      We help ambitious businesses build memorable brands through strategy, design, websites and marketing. From startups to established companies.
+    </p>
+    <div class="hero-actions reveal reveal-delay-3">
+      <a href="#contact" class="btn-primary">
+        Start Your Project
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+      <a href="#work" class="btn-ghost">
+        View Our Work
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+  </div>
+  <div class="hero-stats container reveal reveal-delay-4">
+    <div class="stat-item">
+      <div class="stat-num">120<span class="t-gold">+</span></div>
+      <div class="stat-label">Brands Built</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">8<span class="t-gold">+</span></div>
+      <div class="stat-label">Years of Experience</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">14</div>
+      <div class="stat-label">Services Offered</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">98<span class="t-gold">%</span></div>
+      <div class="stat-label">Client Satisfaction</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TICKER ──────────────────────────────────────────── -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-track" id="tickerTrack">
+    <div class="ticker-item"><span class="dot"></span>Brand Strategy</div>
+    <div class="ticker-item"><span class="dot"></span>Logo Design</div>
+    <div class="ticker-item"><span class="dot"></span>Web Design</div>
+    <div class="ticker-item"><span class="dot"></span>UI / UX</div>
+    <div class="ticker-item"><span class="dot"></span>Digital Marketing</div>
+    <div class="ticker-item"><span class="dot"></span>Photography</div>
+    <div class="ticker-item"><span class="dot"></span>Social Media</div>
+    <div class="ticker-item"><span class="dot"></span>SEO</div>
+    <div class="ticker-item"><span class="dot"></span>Content Creation</div>
+    <div class="ticker-item"><span class="dot"></span>Meta Ads</div>
+    <div class="ticker-item"><span class="dot"></span>Google Ads</div>
+    <div class="ticker-item"><span class="dot"></span>Lead Generation</div>
+    <!-- duplicate for seamless loop -->
+    <div class="ticker-item"><span class="dot"></span>Brand Strategy</div>
+    <div class="ticker-item"><span class="dot"></span>Logo Design</div>
+    <div class="ticker-item"><span class="dot"></span>Web Design</div>
+    <div class="ticker-item"><span class="dot"></span>UI / UX</div>
+    <div class="ticker-item"><span class="dot"></span>Digital Marketing</div>
+    <div class="ticker-item"><span class="dot"></span>Photography</div>
+    <div class="ticker-item"><span class="dot"></span>Social Media</div>
+    <div class="ticker-item"><span class="dot"></span>SEO</div>
+    <div class="ticker-item"><span class="dot"></span>Content Creation</div>
+    <div class="ticker-item"><span class="dot"></span>Meta Ads</div>
+    <div class="ticker-item"><span class="dot"></span>Google Ads</div>
+    <div class="ticker-item"><span class="dot"></span>Lead Generation</div>
+  </div>
+</div>
+
+<!-- ─── TRUSTED BY ──────────────────────────────────────── -->
+<section class="trusted" id="about">
+  <div class="container">
+    <div class="flex-between">
+      <div>
+        <span class="t-label">Trusted By</span>
+        <h2 class="t-h2 mt-4" style="max-width:480px;">Brands across<br>every industry.</h2>
+      </div>
+      <p class="t-body" style="max-width:320px;">From ambitious startups to established enterprises, we've helped businesses across India build brands that create lasting impressions.</p>
+    </div>
+    <div class="trusted-grid reveal">
+      <div class="trusted-logo">Realto</div>
+      <div class="trusted-logo">Nourish Co.</div>
+      <div class="trusted-logo">Versant</div>
+      <div class="trusted-logo">Elara Homes</div>
+      <div class="trusted-logo">MediCare+</div>
+      <div class="trusted-logo">Luxe Interiors</div>
+      <div class="trusted-logo">Citrus Brew</div>
+      <div class="trusted-logo">Arka Builds</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SERVICES ────────────────────────────────────────── -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="section-header flex-between">
+      <div>
+        <span class="t-label">What We Do</span>
+        <h2 class="t-h2 mt-4">Every service your<br>brand needs to scale.</h2>
+      </div>
+      <p class="t-body" style="max-width:360px;">We don't offer everything to everyone. Every service we provide connects directly to business growth — and is executed with the rigour of a seasoned team.</p>
+    </div>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <span class="service-icon">◈</span>
+        <h3 class="service-title">Brand Strategy</h3>
+        <p class="service-desc">Positioning, messaging, competitive analysis, and a clear roadmap for how your brand will grow in the market.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">◎</span>
+        <h3 class="service-title">Brand Identity</h3>
+        <p class="service-desc">Logo design, typography, colour systems, brand guidelines, and every visual touchpoint your audience sees.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">⬚</span>
+        <h3 class="service-title">Website Design</h3>
+        <p class="service-desc">High-converting, fast-loading websites with meticulous UX and design that reflects your brand's true quality.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">◰</span>
+        <h3 class="service-title">Social Media Branding</h3>
+        <p class="service-desc">Templates, content systems and visual identities that maintain consistency across every social platform.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">◈</span>
+        <h3 class="service-title">Content & Photography</h3>
+        <p class="service-desc">Brand photography, videography, and written content that communicates your value with clarity and authority.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">◯</span>
+        <h3 class="service-title">Digital Marketing</h3>
+        <p class="service-desc">SEO, Google Ads, Meta Ads, and lead generation strategies built to bring in the right audience — consistently.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FEATURED WORK ────────────────────────────────────── -->
+<section class="work" id="work">
+  <div class="container">
+    <div class="flex-between section-header">
+      <div>
+        <span class="t-label">Featured Projects</span>
+        <h2 class="t-h2 mt-4">Work that speaks<br>for itself.</h2>
+      </div>
+      <a href="#contact" class="btn-ghost">
+        View All Projects
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+
+    <div class="work-grid reveal">
+      <div class="work-card work-card-large" style="background:linear-gradient(135deg,#1A1A16,#2C2C26)">
+        <div class="work-placeholder" style="color:rgba(255,255,255,0.04);font-size:120px;">Elara</div>
+        <div class="work-overlay" style="opacity:1;">
+          <div class="work-card-tag">Real Estate · Brand Identity</div>
+          <div class="work-card-title">Elara Homes — Redefining premium living through design.</div>
+        </div>
+      </div>
+      <div class="work-card" style="background:linear-gradient(135deg,#F0EBE1,#DDD4C0)">
+        <div class="work-placeholder" style="font-size:70px;color:rgba(0,0,0,0.07);">Nourish</div>
+        <div class="work-overlay">
+          <div class="work-card-tag">Restaurant · Brand Identity + Website</div>
+          <div class="work-card-title">Nourish Co. — A clean food brand built for modern wellness.</div>
+        </div>
+      </div>
+      <div class="work-card" style="background:linear-gradient(135deg,#0D1F3C,#1A3A6B)">
+        <div class="work-placeholder" style="color:rgba(255,255,255,0.04);font-size:70px;">Versant</div>
+        <div class="work-overlay">
+          <div class="work-card-tag">Corporate · Strategy + Identity</div>
+          <div class="work-card-title">Versant — Positioning a B2B firm as a market leader.</div>
+        </div>
+      </div>
+      <div class="work-card" style="background:linear-gradient(135deg,#1E1204,#3D2712)">
+        <div class="work-placeholder" style="color:rgba(255,255,255,0.04);font-size:60px;">Citrus</div>
+        <div class="work-overlay">
+          <div class="work-card-tag">F&B · Brand Identity + Photography</div>
+          <div class="work-card-title">Citrus Brew — Fresh identity for an artisan café chain.</div>
+        </div>
+      </div>
+      <div class="work-card work-card-large" style="background:linear-gradient(135deg,#111,#1C1C1C)">
+        <div class="work-placeholder" style="color:rgba(255,255,255,0.03);font-size:120px;">MediCare+</div>
+        <div class="work-overlay" style="opacity:1;">
+          <div class="work-card-tag">Healthcare · Digital Marketing + Website</div>
+          <div class="work-card-title">MediCare+ — Growing a healthcare brand's patient base through digital trust.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── WHY BALANZE ──────────────────────────────────────── -->
+<section class="why">
+  <div class="container">
+    <div class="section-header">
+      <span class="t-label">Why Balanze</span>
+      <h2 class="t-h2 mt-4" style="max-width:520px;color:var(--white)">Strategy first.<br>Design that earns its keep.</h2>
+    </div>
+    <div class="why-grid reveal">
+      <div class="why-item">
+        <div class="why-num">01</div>
+        <h3 class="why-title">Strategy Before Aesthetics</h3>
+        <p class="why-desc">We begin every project with a clear understanding of your business, your audience and your market. Design decisions follow strategy, not the other way around.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-num">02</div>
+        <h3 class="why-title">Business-Driven Design</h3>
+        <p class="why-desc">Every creative choice we make is tied to a business goal. Beautiful work that doesn't convert is decoration. We build for results.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-num">03</div>
+        <h3 class="why-title">Premium Execution, Always</h3>
+        <p class="why-desc">We don't offer mid-range outcomes. From the first logo sketch to the final website launch, the quality floor is high — because it reflects on your brand.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-num">04</div>
+        <h3 class="why-title">Long-Term Partnership</h3>
+        <p class="why-desc">We work with clients who want a creative partner, not a vendor. Most of our clients return for their next phase of growth — that says everything.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-num">05</div>
+        <h3 class="why-title">Transparent Process</h3>
+        <p class="why-desc">You'll always know where your project stands. No black boxes, no surprises. Clear timelines, clear communication, and honest feedback throughout.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-num">06</div>
+        <h3 class="why-title">India-Rooted, World-Class</h3>
+        <p class="why-desc">We understand the nuances of the Indian market while delivering at a standard you'd expect from the best agencies globally.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROCESS ──────────────────────────────────────────── -->
+<section class="process" id="process">
+  <div class="container">
+    <div class="section-header flex-between">
+      <div>
+        <span class="t-label">Our Process</span>
+        <h2 class="t-h2 mt-4">A clear path from<br>brief to launch.</h2>
+      </div>
+      <p class="t-body" style="max-width:340px;">Our process is built to eliminate guesswork and give you confidence at every step. Eight years of refinement, one clear system.</p>
+    </div>
+    <div class="process-steps reveal">
+      <div class="process-step">
+        <div class="process-step-num">01</div>
+        <h3 class="process-step-title">Discovery</h3>
+        <p class="process-step-desc">We ask the right questions. Goals, audience, competitors, and what success actually looks like for your business.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-step-num">02</div>
+        <h3 class="process-step-title">Research</h3>
+        <p class="process-step-desc">Deep market and competitor analysis to find the positioning white space your brand can own.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-step-num">03</div>
+        <h3 class="process-step-title">Strategy</h3>
+        <p class="process-step-desc">A clear brand strategy document: positioning, messaging, tone, and visual direction — all agreed before any design begins.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-step-num">04</div>
+        <h3 class="process-step-title">Design</h3>
+        <p class="process-step-desc">Intentional, precise design built on the strategy. Presented in context, refined through structured feedback rounds.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-step-num">05</div>
+        <h3 class="process-step-title">Develop</h3>
+        <p class="process-step-desc">Websites built for performance, speed, and conversion — with mobile-first precision and SEO foundations from day one.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-step-num">06</div>
+        <h3 class="process-step-title">Launch</h3>
+        <p class="process-step-desc">We handle the launch end-to-end and ensure everything is live, tested, and performing before handover.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-step-num">07</div>
+        <h3 class="process-step-title">Grow</h3>
+        <p class="process-step-desc">Post-launch support, digital marketing, and ongoing creative work to keep building on the foundation we've built together.</p>
+      </div>
+      <div class="process-step" style="border-right:none;">
+        <div class="process-step-num">08</div>
+        <h3 class="process-step-title">Iterate</h3>
+        <p class="process-step-desc">Brands aren't static. We help you evolve as your business grows, entering new markets and reaching new audiences.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ─────────────────────────────────────── -->
+<section class="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <span class="t-label">Client Stories</span>
+      <h2 class="t-h2 mt-4">The results speak<br>for themselves.</h2>
+    </div>
+    <div class="testimonials-grid reveal">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"Balanze didn't just design our brand — they helped us understand what we were building and why. The clarity we got from their strategy process alone was worth the investment."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">R</div>
+          <div>
+            <div class="testi-name">Rahul Mehta</div>
+            <div class="testi-role">Founder, Elara Homes</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"Our restaurant went from invisible online to fully booked every weekend. The new brand identity and website completely changed how customers perceive us."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">P</div>
+          <div>
+            <div class="testi-name">Priya Sharma</div>
+            <div class="testi-role">Owner, Nourish Co.</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"Professional, honest, and genuinely invested in our success. They pushed back when needed and delivered a brand that we're proud to put in front of enterprise clients."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">A</div>
+          <div>
+            <div class="testi-name">Arjun Nair</div>
+            <div class="testi-role">CEO, Versant Technologies</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"The attention to detail at Balanze is unlike anything we've seen. Every element of our identity was considered, and the final output felt premium without being unapproachable."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">S</div>
+          <div>
+            <div class="testi-name">Sneha Kapoor</div>
+            <div class="testi-role">Founder, Luxe Interiors</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"From the discovery call to the final handover, the process was transparent and the output was exceptional. Our patient inquiries have grown 3x since the rebrand."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">D</div>
+          <div>
+            <div class="testi-name">Dr. Deepak Iyer</div>
+            <div class="testi-role">Director, MediCare+</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"We came in thinking we needed a logo. We left with a complete brand system, a positioning strategy, and a website that our competitors are still trying to match."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">V</div>
+          <div>
+            <div class="testi-name">Vikram Rao</div>
+            <div class="testi-role">MD, Arka Builds</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FAQ ──────────────────────────────────────────────── -->
+<section class="faq">
+  <div class="container">
+    <div class="section-header">
+      <span class="t-label">Common Questions</span>
+      <h2 class="t-h2 mt-4">Everything you need<br>to decide.</h2>
+    </div>
+    <div class="faq-grid">
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            <span>How long does a branding project take?</span>
+            <span class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="var(--black)"><path d="M6 2v8M2 6h8"/></svg></span>
+          </button>
+          <div class="faq-a">Brand identity projects typically take 4–6 weeks, depending on the scope. Website projects range from 6–12 weeks. We'll give you a precise timeline during the discovery call so you can plan accordingly.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            <span>Do you work with early-stage startups?</span>
+            <span class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="var(--black)"><path d="M6 2v8M2 6h8"/></svg></span>
+          </button>
+          <div class="faq-a">Yes. We work with businesses at all stages — from founders who are launching their first brand to established companies undergoing a rebrand. Our process adapts to where you are, not where we'd like you to be.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            <span>What's included in a brand identity package?</span>
+            <span class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="var(--black)"><path d="M6 2v8M2 6h8"/></svg></span>
+          </button>
+          <div class="faq-a">A standard brand identity package includes: logo suite, colour palette, typography system, brand guidelines, and application mockups. Extended packages include stationery, social media templates, and pitch deck design.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            <span>Can I start with just a logo?</span>
+            <span class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="var(--black)"><path d="M6 2v8M2 6h8"/></svg></span>
+          </button>
+          <div class="faq-a">We'd recommend starting with a brand identity rather than just a logo. A logo without a supporting system rarely solves the underlying challenge. That said, we'll always be honest about what your business needs at its current stage.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            <span>Do you offer ongoing support after launch?</span>
+            <span class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="var(--black)"><path d="M6 2v8M2 6h8"/></svg></span>
+          </button>
+          <div class="faq-a">Yes. We offer monthly retainer packages that include design support, digital marketing, SEO, content, and ads management. Many of our clients transition to a retainer after their initial project to keep building momentum.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            <span>What industries do you specialise in?</span>
+            <span class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="var(--black)"><path d="M6 2v8M2 6h8"/></svg></span>
+          </button>
+          <div class="faq-a">We work across real estate, hospitality, healthcare, interior design, construction, F&B, and corporate services. Our process is industry-agnostic, but we bring category-specific insight to every project we take on.</div>
+        </div>
+      </div>
+      <div>
+        <div class="faq-cta">
+          <h3>Have a question we haven't answered?</h3>
+          <p>Book a free 30-minute discovery call. No pitch, no pressure — just a conversation about your brand and whether we're the right fit for each other.</p>
+          <a href="#contact" class="btn-primary">Book a Discovery Call <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA BAND ──────────────────────────────────────────── -->
+<section class="cta-band">
+  <div class="container">
+    <span class="t-label" style="display:block;margin-bottom:20px;">Ready When You Are</span>
+    <h2 class="t-h2">Let's build your brand<br>the right way.</h2>
+    <p class="t-body">A 30-minute call is all it takes to understand your goals and see whether we're the right partner for this chapter of your growth.</p>
+    <div class="cta-actions">
+      <a href="#contact" class="btn-primary">Start Your Project <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      <a href="https://wa.me/919876543210" target="_blank" rel="noopener" class="btn-ghost">WhatsApp Us <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+    </div>
+  </div>
+  <div class="cta-marquee" aria-hidden="true">
+    <div class="cta-marquee-track">
+      <span class="cta-marquee-item">Balanze</span>
+      <span class="cta-marquee-item">Building Brands</span>
+      <span class="cta-marquee-item">That Grow</span>
+      <span class="cta-marquee-item">Balanze</span>
+      <span class="cta-marquee-item">Building Brands</span>
+      <span class="cta-marquee-item">That Grow</span>
+      <span class="cta-marquee-item">Balanze</span>
+      <span class="cta-marquee-item">Building Brands</span>
+      <span class="cta-marquee-item">That Grow</span>
+      <span class="cta-marquee-item">Balanze</span>
+      <span class="cta-marquee-item">Building Brands</span>
+      <span class="cta-marquee-item">That Grow</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ──────────────────────────────────────────── -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-header">
+      <span class="t-label">Get In Touch</span>
+      <h2 class="t-h2 mt-4">Every great brand<br>starts with a conversation.</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <p class="t-body" style="font-size:18px;max-width:380px;">Tell us about your business and what you're looking to build. We'll respond within one business day.</p>
+        <div class="contact-method">
+          <span class="t-label">Email</span>
+          <a href="mailto:hello@balanze.in">hello@balanze.in</a>
+        </div>
+        <div class="contact-method">
+          <span class="t-label">WhatsApp</span>
+          <a href="https://wa.me/919876543210" target="_blank">+91 98765 43210</a>
+        </div>
+        <div class="contact-method">
+          <span class="t-label">Location</span>
+          <a href="#">India — Remote-Friendly</a>
+        </div>
+        <div>
+          <span class="t-label" style="display:block;margin-bottom:12px;">Follow</span>
+          <div style="display:flex;gap:16px;">
+            <a href="#" style="font-size:13px;color:var(--black);text-decoration:none;font-weight:500;opacity:0.6;transition:opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.6">Instagram</a>
+            <a href="#" style="font-size:13px;color:var(--black);text-decoration:none;font-weight:500;opacity:0.6;transition:opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.6">LinkedIn</a>
+            <a href="#" style="font-size:13px;color:var(--black);text-decoration:none;font-weight:500;opacity:0.6;transition:opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.6">Behance</a>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form reveal reveal-delay-2">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="Rahul Mehta" autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label for="company">Company</label>
+            <input type="text" id="company" name="company" placeholder="Elara Homes">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="rahul@company.in" autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" autocomplete="tel">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="service">What do you need?</label>
+          <select id="service" name="service">
+            <option value="" disabled selected>Select a service</option>
+            <option>Brand Strategy</option>
+            <option>Logo & Brand Identity</option>
+            <option>Website Design</option>
+            <option>Social Media Branding</option>
+            <option>Content & Photography</option>
+            <option>Digital Marketing</option>
+            <option>Full Brand Package</option>
+            <option>Not Sure — Let's Talk</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Tell us about your brand</label>
+          <textarea id="message" name="message" placeholder="What does your business do, who are your customers, and what are you hoping to achieve?"></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%;justify-content:center;" onclick="handleSubmit(event)">
+          Send Message
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </button>
+        <p style="font-size:12px;color:var(--muted);margin-top:12px;text-align:center;">We typically respond within 1 business day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ───────────────────────────────────────────── -->
+<footer id="blog">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="nav-logo" href="#home" style="color:var(--white)">Balanze<span>.</span></a>
+        <p>Building brands that grow. India's premium creative branding agency for businesses that want to be remembered.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">Brand Strategy</a></li>
+          <li><a href="#services">Brand Identity</a></li>
+          <li><a href="#services">Website Design</a></li>
+          <li><a href="#services">UI/UX Design</a></li>
+          <li><a href="#services">Social Media</a></li>
+          <li><a href="#services">Digital Marketing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#work">Portfolio</a></li>
+          <li><a href="#process">Our Process</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="mailto:hello@balanze.in">hello@balanze.in</a></li>
+          <li><a href="https://wa.me/919876543210">WhatsApp</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Behance</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Balanze. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── SCRIPTS ──────────────────────────────────────────── -->
+<script>
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = -100, my = -100, rx = -100, ry = -100;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+function animateCursor() {
+  cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+// Scroll effects
+const nav = document.getElementById('mainNav');
+const pb = document.getElementById('progressBar');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+  const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+  pb.style.width = pct + '%';
+});
+
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: 0.12 });
+reveals.forEach(el => io.observe(el));
+
+// Mobile nav
+const ham = document.getElementById('navHam');
+const mobileNav = document.getElementById('mobileNav');
+const mobileClose = document.getElementById('mobileNavClose');
+ham.addEventListener('click', () => mobileNav.classList.add('open'));
+mobileClose.addEventListener('click', () => mobileNav.classList.remove('open'));
+function closeMobileNav() { mobileNav.classList.remove('open'); }
+
+// FAQ accordion
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+    btn.setAttribute('aria-expanded', !isOpen);
+  });
+});
+
+// Dark mode
+const dt = document.getElementById('darkToggle');
+let dark = localStorage.getItem('balanze-dark') === 'true';
+function applyTheme() {
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+  dt.textContent = dark ? '☀️' : '🌙';
+}
+applyTheme();
+dt.addEventListener('click', () => { dark = !dark; localStorage.setItem('balanze-dark', dark); applyTheme(); });
+
+// Form submit
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target;
+  btn.textContent = 'Message Sent ✓';
+  btn.style.background = '#22c55e';
+  setTimeout(() => { btn.innerHTML = 'Send Message <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>'; btn.style.background = ''; }, 3000);
+}
+
+// Smooth hero reveal on load
+window.addEventListener('load', () => {
+  document.querySelectorAll('.hero .reveal').forEach((el, i) => {
+    setTimeout(() => el.classList.add('visible'), 100 + i * 120);
+  });
+});
+</script>
+</body>
+</html>
